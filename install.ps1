@@ -8,6 +8,16 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
+function Test-InstallerSourceRoot {
+    param([string]$Path)
+
+    return (
+        (Test-Path -LiteralPath (Join-Path $Path "CONSTITUTION.md")) -and
+        (Test-Path -LiteralPath (Join-Path $Path "docs")) -and
+        (Test-Path -LiteralPath (Join-Path $Path "specs"))
+    )
+}
+
 function Write-Section {
     param([string]$Message)
 
@@ -160,29 +170,32 @@ $includeAdrStarters = Read-YesNo -Prompt "Include starter ADR files?" -Default (
 $overwriteExisting = Read-YesNo -Prompt "Overwrite existing matching files in the target repo?" -Default $false
 
 $tempRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("architecture-guidelines-kit-" + [guid]::NewGuid().ToString("N"))
-$zipPath = Join-Path $tempRoot "repo.zip"
-$extractRoot = Join-Path $tempRoot "extract"
+$clonedSourceRoot = Join-Path $tempRoot "source"
 
-$repoName = ($SourceRepo.TrimEnd("/") -split "/")[-1]
-$archiveFolder = "{0}-{1}" -f $repoName, $Branch
-$sourceArchiveUrl = "https://github.com/{0}/archive/refs/heads/{1}.zip" -f $SourceRepo, $Branch
+$repoCloneUrl = "https://github.com/{0}.git" -f $SourceRepo
 
 $copied = [System.Collections.Generic.List[string]]::new()
 $skipped = [System.Collections.Generic.List[string]]::new()
 $pathsToCopy = [System.Collections.Generic.List[string]]::new()
 
 try {
-    New-Item -ItemType Directory -Path $tempRoot | Out-Null
-    New-Item -ItemType Directory -Path $extractRoot | Out-Null
+    if (Test-InstallerSourceRoot -Path $PSScriptRoot) {
+        $sourceRoot = $PSScriptRoot
+        Write-Section "Using local source repo"
+        Write-Host $sourceRoot
+    }
+    else {
+        New-Item -ItemType Directory -Path $tempRoot | Out-Null
 
-    Write-Section "Downloading source repo"
-    Write-Host $sourceArchiveUrl
-    Invoke-WebRequest -Uri $sourceArchiveUrl -OutFile $zipPath
-    Expand-Archive -Path $zipPath -DestinationPath $extractRoot -Force
+        Write-Section "Cloning source repo"
+        Write-Host $repoCloneUrl
+        git clone --depth 1 --branch $Branch $repoCloneUrl $clonedSourceRoot | Out-Null
 
-    $sourceRoot = Join-Path $extractRoot $archiveFolder
-    if (-not (Test-Path -LiteralPath $sourceRoot)) {
-        throw "Downloaded archive did not contain expected folder: $archiveFolder"
+        if ($LASTEXITCODE -ne 0 -or -not (Test-InstallerSourceRoot -Path $clonedSourceRoot)) {
+            throw "Failed to clone a usable source repo from $repoCloneUrl"
+        }
+
+        $sourceRoot = $clonedSourceRoot
     }
 
     $resolvedTarget = Resolve-Path -LiteralPath $TargetPath

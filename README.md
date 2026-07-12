@@ -58,14 +58,16 @@ If this repository is published on GitHub, you can install the selected guidelin
 From the target project repo, run:
 
 ```powershell
-iwr https://raw.githubusercontent.com/Sallehhuddin95/architecture-guidelines-kit/main/install.ps1 -OutFile install-guidelines.ps1
-powershell -ExecutionPolicy Bypass -File .\install-guidelines.ps1
+$temp = Join-Path $env:TEMP ("architecture-guidelines-kit-" + [guid]::NewGuid().ToString("N"))
+git clone --depth 1 https://github.com/Sallehhuddin95/architecture-guidelines-kit.git $temp
+powershell -ExecutionPolicy Bypass -File (Join-Path $temp "install.ps1")
+Remove-Item -LiteralPath $temp -Recurse -Force
 ```
 
 The script will:
 
 1. ask a few setup questions
-2. download this guidelines repo to a temporary folder
+2. use the cloned guidelines repo as the source
 3. copy only the matching files into the current project
 4. print a summary of what was installed and what to read first
 
