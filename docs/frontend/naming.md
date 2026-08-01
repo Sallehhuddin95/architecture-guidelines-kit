@@ -15,25 +15,27 @@ This document defines naming rules for the Next.js App Router and TypeScript cod
 
 ## 2. Directory and File Casing Matrix
 
-| Element                         | Rule                               | Example                                         |
-| ------------------------------- | ---------------------------------- | ----------------------------------------------- |
-| Next.js route folders in `app/` | `kebab-case` lowercase             | `app/billing-history/`                          |
-| Route group folders             | Parentheses + `kebab-case`         | `app/(auth)/`                                   |
-| Dynamic segments                | Bracket syntax                     | `app/posts/[postId]/page.tsx`                   |
-| Catch-all segments              | Bracket ellipsis syntax            | `app/docs/[...slug]/page.tsx`                   |
-| Feature folders                 | `kebab-case` lowercase             | `features/user-profile/`                        |
-| Component files                 | `PascalCase.tsx`                   | `RevenueChart.tsx`                              |
-| Hook files                      | `camelCase` with `use` prefix      | `useDashboardMetrics.ts`                        |
-| Service files                   | `kebab-case` with verb/noun intent | `get-dashboard-metrics.ts`, `create-session.ts` |
-| Utility files                   | `kebab-case`                       | `format-currency.ts`, `build-query-string.ts`   |
-| Type files                      | `kebab-case`                       | `analytics.ts`, `auth-session.ts`               |
-| Test files (unit/integration)   | `*.test.ts(x)`                     | `revenue-chart.test.tsx`                        |
-| E2E specs                       | `*.spec.ts`                        | `checkout-flow.spec.ts`                         |
+| Element                             | Rule                               | Example                                         |
+| ----------------------------------- | ---------------------------------- | ----------------------------------------------- |
+| Next.js route folders in `src/app/` | `kebab-case` lowercase             | `src/app/billing-history/`                      |
+| Route group folders                 | Parentheses + `kebab-case`         | `src/app/(auth)/`                               |
+| Dynamic segments                    | Bracket syntax                     | `src/app/posts/[postId]/page.tsx`               |
+| Catch-all segments                  | Bracket ellipsis syntax            | `src/app/docs/[...slug]/page.tsx`               |
+| Feature folders                     | `kebab-case` lowercase             | `src/features/user-profile/`                    |
+| Component files                     | `PascalCase.tsx`                   | `RevenueChart.tsx`                              |
+| Hook files                          | `camelCase` with `use` prefix      | `useDashboardMetrics.ts`                        |
+| Service files                       | `kebab-case` with verb/noun intent | `get-dashboard-metrics.ts`, `create-session.ts` |
+| Utility files                       | `kebab-case`                       | `format-currency.ts`, `build-query-string.ts`   |
+| Type files                          | `kebab-case`                       | `analytics.ts`, `auth-session.ts`               |
+| Test files (unit/integration)       | `*.test.ts(x)`                     | `revenue-chart.test.tsx`                        |
+| E2E specs                           | `*.spec.ts`                        | `checkout-flow.spec.ts`                         |
 
 Notes:
 
 - Do not use `index.tsx` for main feature components; use explicit names.
 - `index.ts` is allowed only as a feature public API barrel.
+- Keep application source code inside `src/`.
+- Use root `public/` for static assets when the project needs them.
 
 ---
 
@@ -138,7 +140,7 @@ export type UserRole = (typeof USER_ROLES)[keyof typeof USER_ROLES];
 - Component name and filename must match (`RevenueChart` in `RevenueChart.tsx`).
 - Use `PascalCase` component names.
 - Prefer named exports for reusable components.
-- Keep route-level files in `app/` as required by Next.js defaults.
+- Keep route-level files in `src/app/` as required by Next.js defaults.
 - Props types should be named `{ComponentName}Props`.
 
 ```tsx
@@ -202,6 +204,7 @@ const createUserPayload = createUserSchema.parse(input);
 ## 8. Import and Alias Conventions
 
 - Use path alias imports (for example `@/features/...`) where configured.
+- Prefer alias configuration where `@/` resolves to `src/`.
 - Order imports consistently:
   1. external packages
   2. internal aliases

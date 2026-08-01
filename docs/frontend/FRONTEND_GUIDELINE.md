@@ -4,6 +4,8 @@ This document defines architecture, folder structure, rendering strategy, state 
 
 All code in this repository must use TypeScript with strict mode enabled.
 
+Prefer the latest stable version of frameworks and libraries when introducing or upgrading dependencies, as long as doing so does not create known compatibility or peer dependency issues in the target project.
+
 ---
 
 ## 1. Core Tech Stack
@@ -14,6 +16,12 @@ All code in this repository must use TypeScript with strict mode enabled.
 - Language: TypeScript (strict mode)
 - Data fetching and caching: TanStack Query (v5+)
 - Styling and design system: Tailwind CSS + shadcn/ui
+
+### Dependency Version Policy
+
+- Prefer the latest stable version of major frameworks and libraries when starting a new project or making planned upgrades.
+- Do not upgrade blindly when a dependency introduces known compatibility, peer dependency, build, or runtime issues.
+- If a project intentionally stays below the latest stable version, document the reason in the relevant repo or upgrade note.
 
 ### Testing
 
@@ -59,37 +67,41 @@ Apply these principles pragmatically. They are guardrails for maintainable front
 
 ## 3. Feature-Driven Folder Structure
 
-Use domain and feature-driven architecture. Code for a business capability belongs in its feature folder under `features/`. Global folders are for reusable cross-domain utilities only.
+Use domain and feature-driven architecture. Put application source code under `src/`. Code for a business capability belongs in its feature folder under `src/features/`. Global folders are for reusable cross-domain utilities only.
+
+Keep static assets at the repo root in `public/` when needed. Use `public/` for images, icons, fonts, manifests, and similar publicly served files. Do not place application source code in `public/`.
 
 ```text
-├── app/                          # Next.js App Router: routing and layouts only
-│   ├── layout.tsx                # Root application layout
-│   ├── page.tsx                  # Home route
-│   └── dashboard/
-│       └── page.tsx              # Route component that imports feature views
-├── components/                   # Global, domain-agnostic UI
-│   ├── ui/                       # shadcn/ui primitives
-│   └── layout/                   # App-wide layout blocks
-├── features/                     # Business domains
-│   ├── auth/
-│   └── dashboard/
-│       ├── components/           # Feature-scoped components
-│       ├── hooks/                # Feature-scoped hooks
-│       ├── services/             # Feature-scoped API clients/BFF handlers
-│       ├── types/                # Feature-scoped types
-│       └── index.ts              # Feature public API barrel
-├── hooks/                        # Global reusable hooks
-├── lib/                          # Shared library initialization/config
-├── utils/                        # Pure helper functions
-├── types/                        # Global, domain-agnostic types
-├── tests/
-│   ├── unit/                     # Unit test suites
-│   ├── integration/              # Integration tests with RTL + MSW
-│   └── shared/                   # Shared factories, handlers, fixtures
+├── public/                       # Static assets served as-is when needed
+├── src/
+│   ├── app/                      # Next.js App Router: routing and layouts only
+│   │   ├── layout.tsx            # Root application layout
+│   │   ├── page.tsx              # Home route
+│   │   └── dashboard/
+│   │       └── page.tsx          # Route component that imports feature views
+│   ├── components/               # Global, domain-agnostic UI
+│   │   ├── ui/                   # shadcn/ui primitives
+│   │   └── layout/               # App-wide layout blocks
+│   ├── features/                 # Business domains
+│   │   ├── auth/
+│   │   └── dashboard/
+│   │       ├── components/       # Feature-scoped components
+│   │       ├── hooks/            # Feature-scoped hooks
+│   │       ├── services/         # Feature-scoped API clients/BFF handlers
+│   │       ├── types/            # Feature-scoped types
+│   │       └── index.ts          # Feature public API barrel
+│   ├── hooks/                    # Global reusable hooks
+│   ├── lib/                      # Shared library initialization/config
+│   ├── utils/                    # Pure helper functions
+│   ├── types/                    # Global, domain-agnostic types
+│   └── tests/
+│       ├── unit/                 # Unit test suites
+│       ├── integration/          # Integration tests with RTL + MSW
+│       └── shared/               # Shared modular fixtures, factories, handlers for unit/integration
 └── e2e/
-    ├── fixtures/                 # Playwright fixtures/page objects
-    ├── factories/                # E2E data factories/seed helpers
-    └── specs/                    # E2E specs (*.spec.ts)
+  ├── fixtures/                 # Playwright-only fixtures/page objects
+  ├── factories/                # Playwright-only data factories/seed helpers
+  └── specs/                    # E2E specs (*.spec.ts)
 ```
 
 ### Rule of Co-Location
@@ -102,13 +114,13 @@ If a component, hook, service, or type is used by only one feature, keep it insi
 
 Use a strict two-tier type model to avoid uncontrolled global type growth.
 
-### Tier 1: Global Types (`/types`)
+### Tier 1: Global Types (`/src/types`)
 
 - Purpose: Abstract, data-agnostic structures used across multiple features.
 - Examples: API envelopes, paginated responses, common table states, metadata contracts.
 
 ```ts
-// /types/api.ts
+// /src/types/api.ts
 export interface PaginatedResponse<T> {
   data: T[];
   meta: {
@@ -119,13 +131,13 @@ export interface PaginatedResponse<T> {
 }
 ```
 
-### Tier 2: Feature Types (`/features/[feature-name]/types`)
+### Tier 2: Feature Types (`/src/features/[feature-name]/types`)
 
 - Purpose: Business-domain models local to one feature.
 - Examples: User entities, feature payloads, form contracts.
 
 ```ts
-// /features/dashboard/types/analytics.ts
+// /src/features/dashboard/types/analytics.ts
 export interface DashboardMetrics {
   totalRevenue: number;
   activeUsers: number;
@@ -136,7 +148,7 @@ export interface DashboardMetrics {
 ### Safeguards
 
 - Isolated imports: Do not directly import one feature's types into another feature.
-- Hoist only when needed: If a type becomes broadly shared, move it to `/types/common.ts` (or another explicit shared location).
+- Hoist only when needed: If a type becomes broadly shared, move it to `/src/types/common.ts` (or another explicit shared location).
 - Token choice:
   - Prefer `interface` for extendable object contracts.
   - Prefer `type` for unions, intersections, primitive aliases, and tuples.
@@ -258,6 +270,19 @@ Optimize performance with architectural decisions first, then apply targeted mic
 
 - Virtualize very large lists or grids when rendering cost becomes significant.
 - Keep item and row components small and predictable.
+
+---
+
+## 9. Testing Support Boundaries
+
+Use modular testing support with clear ownership by test layer.
+
+- `src/tests/shared/` is the shared support surface for unit and integration tests.
+- Put reusable Vitest/RTL fixtures in `src/tests/shared/fixtures/`.
+- Put reusable deterministic data builders in `src/tests/shared/factories/`.
+- Put shared MSW handlers and related network test support in `src/tests/shared/handlers/`.
+- Keep Playwright support separate under `e2e/fixtures/` and `e2e/factories/`.
+- Do not mix Vitest shared support with Playwright support.
 - Avoid repeated sorting, filtering, or mapping work inside deep render trees when it can be moved earlier or cached intentionally.
 
 ### Assets and Perceived Performance

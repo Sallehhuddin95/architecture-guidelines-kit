@@ -64,6 +64,9 @@ The following principles apply across the repository:
 7. AI agents must follow repository guidance before generic best practice.
    If local project guidance exists and is authoritative, it wins.
 
+8. Prefer latest stable dependency versions when compatible.
+   New projects and planned upgrades should prefer the latest stable framework and library versions unless known compatibility, peer dependency, build, runtime, or platform issues justify staying behind.
+
 ---
 
 ## 4. Source-of-Truth Order

@@ -27,6 +27,9 @@ tests/
   unit/
   integration/
   shared/
+    fixtures/
+    factories/
+    handlers/
 e2e/
   fixtures/
   factories/
@@ -35,9 +38,20 @@ e2e/
 
 Rules:
 
-- Place reusable test helpers in `tests/shared`.
+- Unit and integration tests must share modular fixtures and factories from `tests/shared/`.
+- Organize shared test support into small focused modules under `tests/shared/fixtures/` and `tests/shared/factories/` instead of large catch-all helpers.
+- Place reusable MSW handlers and related test support in `tests/shared/handlers/` or another equally explicit shared testing module.
 - Keep Playwright fixtures and factories inside `e2e/` only.
+- E2E fixtures and factories must not be imported into unit or integration tests.
 - Do not import Playwright helpers into Vitest suites.
+
+### Shared Testing Ownership
+
+- `tests/unit/` and `tests/integration/` share the same test support surface under `tests/shared/`.
+- `tests/shared/fixtures/` should hold reusable render/setup fixtures, provider wrappers, and test context helpers for Vitest-based suites.
+- `tests/shared/factories/` should hold deterministic data builders for component, hook, and service tests.
+- `e2e/fixtures/` and `e2e/factories/` are separate and owned by Playwright flows only.
+- Do not collapse Vitest and Playwright support into one shared test utility layer.
 
 ---
 
@@ -124,6 +138,8 @@ Requirements:
 - No network calls.
 - No dependency on app providers.
 - No `as unknown as` unsafe casting.
+- Reuse shared factories from `tests/shared/factories/` when test data would otherwise be duplicated.
+- Reuse shared fixtures from `tests/shared/fixtures/` only when they support deterministic unit setup without introducing UI or network coupling.
 
 ```ts
 // tests/unit/format-currency.test.ts
@@ -150,11 +166,12 @@ Requirements:
 - Mock network via MSW only.
 - Use a dedicated QueryClient test provider.
 - Set `onUnhandledRequest: 'error'` to fail unexpected calls.
+- Reuse modular factories and fixtures from `tests/shared/` instead of redefining render setup or test data per file.
 
-### Shared Query Provider
+### Shared Query Provider Fixture
 
 ```tsx
-// tests/shared/query-test-provider.tsx
+// tests/shared/fixtures/query-test-provider.tsx
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 
@@ -186,7 +203,7 @@ export function QueryTestProvider({ children }: { children: ReactNode }) {
 // vitest.setup.ts
 import "@testing-library/jest-dom/vitest";
 import { afterAll, afterEach, beforeAll } from "vitest";
-import { server } from "./tests/shared/server";
+import { server } from "./tests/shared/handlers/server";
 
 beforeAll(() => {
   server.listen({ onUnhandledRequest: "error" });
@@ -208,7 +225,7 @@ afterAll(() => {
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { DashboardView } from "@/features/dashboard/components/DashboardView";
-import { QueryTestProvider } from "../shared/query-test-provider";
+import { QueryTestProvider } from "../shared/fixtures/query-test-provider";
 
 describe("DashboardView", () => {
   it("renders metrics from mocked API handlers", async () => {
@@ -235,6 +252,9 @@ Requirements:
 - Prefer role-based locators (`getByRole`) and stable `data-testid` selectors.
 - Avoid brittle selectors tied to cosmetic text when possible.
 - Use isolated fixtures for authenticated and unauthenticated states.
+- Keep Playwright fixtures modular under `e2e/fixtures/`.
+- Keep Playwright data builders, seeds, and browser-flow factories under `e2e/factories/`.
+- Do not reuse Vitest `tests/shared/` fixtures or factories inside Playwright suites.
 
 ### Auth Fixture Example
 
