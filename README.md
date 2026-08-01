@@ -29,6 +29,7 @@ This repo is split by purpose.
 - `docs/workflow/`: how work should move through feature delivery, bug fixing, review, refactoring, and release
 - `specs/`: source-of-truth behavior and contract specifications
 - `.github/agents/`: Copilot custom agents that enforce or apply the guidance
+- `.github/instructions/`: pointer stubs only, not the source of truth; they redirect to `docs/frontend/` and `docs/backend/` and are not meant to be copied into target repos
 
 If you plan to use the custom agents, see `.github/agents/README.md` for when to use each one.
 
