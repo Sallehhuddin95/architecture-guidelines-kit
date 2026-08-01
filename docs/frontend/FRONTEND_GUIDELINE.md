@@ -293,7 +293,7 @@ Use modular testing support with clear ownership by test layer.
 
 ---
 
-## 9. Authentication and Authorization
+## 10. Authentication and Authorization
 
 Prefer simple, secure defaults for web authentication. The frontend must treat authentication as a server-backed security concern first, and a UI state concern second.
 
@@ -329,7 +329,7 @@ Prefer simple, secure defaults for web authentication. The frontend must treat a
 
 ---
 
-## 10. Testing Architecture Overview
+## 11. Testing Architecture Overview
 
 Keep testing layers explicit by responsibility.
 
@@ -358,5 +358,5 @@ Keep testing layers explicit by responsibility.
 
 For naming and testing details, refer to:
 
-- `naming-convention.md`: naming rules, casing, symbols, and token conventions.
+- `naming.md`: naming rules, casing, symbols, and token conventions.
 - `testing.md`: setup patterns, MSW examples, and Playwright practices.

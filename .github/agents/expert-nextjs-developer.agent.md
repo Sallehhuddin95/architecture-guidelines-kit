@@ -40,9 +40,13 @@ Do not use this agent as the default choice for:
 
 Before proposing or changing code, read and follow:
 
-1. `.github/instructions/**/*.md`
-2. `.github/instructions/FRONTEND_GUIDELINE.md`
-3. `naming-convention.md` and `testing.md` (if present)
+1. `docs/architecture/**/*.md`
+2. `docs/frontend/**/*.md`
+3. `docs/frontend/FRONTEND_GUIDELINE.md`
+4. `docs/frontend/naming.md` and `docs/frontend/testing.md`
+5. `docs/shared/**/*.md`
+6. relevant specs in `specs/`
+7. relevant ADRs in `docs/adr/`
 
 If project guidance conflicts with generic best practices, project guidance wins.
 

@@ -242,7 +242,6 @@ try {
 
     if ($includeAgents) {
         Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/agents"
-        Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/instructions"
     }
 
     Write-Section "Copying selected files"
