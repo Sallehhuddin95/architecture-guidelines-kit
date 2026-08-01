@@ -93,6 +93,25 @@ Frontend should not:
 
 ---
 
+## 7a. Mobile-Specific Responsibilities
+
+Mobile clients cannot rely on browser cookies, so the token-handling rules above apply differently on native platforms.
+
+Mobile should:
+
+- store access and refresh tokens using secure platform storage (for example `expo-secure-store` or platform keychain/keystore equivalents), never unencrypted storage such as `AsyncStorage`
+- use short-lived access tokens with a refresh flow coordinated through the backend session/auth service
+- handle OAuth via in-app browser flows and deep/universal links, then exchange the result for securely stored session tokens
+- treat navigation guards as UX assistance, not the primary security boundary
+
+Mobile should not:
+
+- store tokens in unencrypted local storage
+- log tokens or embed them in crash reports or analytics events
+- assume a hidden navigation route is sufficient access control
+
+---
+
 ## 8. Backend Responsibilities
 
 Backend should:

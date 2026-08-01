@@ -40,7 +40,25 @@ Disallowed direction:
 
 ---
 
-## 3. Import Rules
+## 3. Mobile Dependency Direction
+
+Allowed direction:
+
+1. `app` (Expo Router entry/screens) -> `features`
+2. `features` -> `shared` or stable infrastructure
+3. `components/ui`, `hooks`, `lib`, `utils`, `types` remain generic
+
+Disallowed direction:
+
+1. `shared` -> `features`
+2. one feature importing another feature's private internals
+3. screen/route files importing scattered transport helpers instead of feature entry points when a feature boundary exists
+
+Mobile follows the same dependency direction as web frontend. Do not introduce a second, incompatible dependency model for mobile without a documented reason (see `docs/adr/`).
+
+---
+
+## 4. Import Rules
 
 - Prefer feature public APIs when a feature exports one.
 - Do not deep-import into another module's internal implementation without explicit justification.
@@ -49,7 +67,7 @@ Disallowed direction:
 
 ---
 
-## 4. Shared Code Promotion Rules
+## 5. Shared Code Promotion Rules
 
 Promote code into shared space only when:
 
@@ -61,7 +79,7 @@ Do not promote code only to reduce file count or to satisfy premature DRY instin
 
 ---
 
-## 5. External Dependency Discipline
+## 6. External Dependency Discipline
 
 - Add new libraries only when project conventions or native platform features are insufficient.
 - Avoid overlapping libraries for the same responsibility.
@@ -70,7 +88,7 @@ Do not promote code only to reduce file count or to satisfy premature DRY instin
 
 ---
 
-## 6. Change Review Questions
+## 7. Change Review Questions
 
 Before merging a structural change, ask:
 

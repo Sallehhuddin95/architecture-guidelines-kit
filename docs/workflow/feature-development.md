@@ -26,7 +26,7 @@ If those are missing, define them before coding.
 2. Identify which feature module or system area owns the change.
 3. Review relevant docs:
    - architecture guidance
-   - frontend or backend rules
+   - frontend, backend, or mobile rules
    - shared auth, error, or API rules
    - relevant ADRs and specs
 4. Update or create the feature spec if behavior is not already documented.

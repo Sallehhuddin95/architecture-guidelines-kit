@@ -43,6 +43,25 @@ Feature modules must not:
 - import private internals from another feature
 - leak domain-specific logic into shared folders without proven reuse
 
+### Mobile Boundaries
+
+Mobile (React Native/Expo) follows the same layering model as web frontend, adapted for a native runtime.
+
+The app/entry layer (for example Expo Router `app/`) may:
+
+- define routes, screens, and navigation structure
+- coordinate top-level rendering and layout behavior
+- invoke feature entry points
+- define route-level loading and error boundaries
+
+The app/entry layer must not:
+
+- hold feature business logic
+- become the primary location for data transformation rules
+- implement reusable feature services directly
+
+Mobile feature modules follow the same ownership rules as web feature modules above, and mobile shares the Shared Modules rules defined in this document. Do not duplicate mobile-specific shared logic into web-only folders or vice versa; keep `docs/frontend/`, `docs/backend/`, and `docs/mobile/` as independent stack boundaries.
+
 ### Shared Modules
 
 Shared modules may:
@@ -100,6 +119,8 @@ Project documentation should also follow boundaries:
 
 - architecture docs define structural rules
 - frontend docs define frontend-specific rules
+- backend docs define backend-specific rules
+- mobile docs define mobile-specific rules
 - shared docs define cross-stack rules
 - workflow docs define process
 - ADRs define why major decisions exist

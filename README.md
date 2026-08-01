@@ -24,12 +24,13 @@ This repo is split by purpose.
 - `docs/architecture/`: system structure, boundaries, and dependency rules
 - `docs/frontend/`: frontend implementation standards
 - `docs/backend/`: backend implementation standards
+- `docs/mobile/`: mobile (React Native/Expo) implementation standards
 - `docs/shared/`: cross-stack rules such as auth, API contracts, and error handling
 - `docs/adr/`: architecture decision records and ADR guidance
 - `docs/workflow/`: how work should move through feature delivery, bug fixing, review, refactoring, and release
 - `specs/`: source-of-truth behavior and contract specifications
 - `.github/agents/`: Copilot custom agents that enforce or apply the guidance
-- `.github/instructions/`: pointer stubs only, not the source of truth; they redirect to `docs/frontend/` and `docs/backend/` and are not meant to be copied into target repos
+- `.github/instructions/`: pointer stubs only, not the source of truth; they redirect to `docs/frontend/`, `docs/backend/`, and `docs/mobile/` and are not meant to be copied into target repos
 
 If you plan to use the custom agents, see `.github/agents/README.md` for when to use each one.
 
@@ -82,7 +83,7 @@ Start with these groups:
 2. `docs/shared/`
 3. `docs/adr/`
 4. `specs/README.md`
-5. stack-specific docs from `docs/frontend/` and/or `docs/backend/`
+5. stack-specific docs from `docs/frontend/`, `docs/backend/`, and/or `docs/mobile/`
 6. `.github/agents/` if you use Copilot custom agents
 
 Then adapt them immediately to the real stack, real boundaries, and real delivery style of the new repo.
@@ -151,6 +152,12 @@ Backend:
 - `docs/backend/security.md`
 - `docs/backend/testing.md`
 
+Mobile:
+
+- `docs/mobile/MOBILE_GUIDELINE.md`
+- `docs/mobile/naming.md`
+- `docs/mobile/testing.md`
+
 ### Phase 4: ADRs
 
 Use `docs/adr/README.md` to guide decisions.
@@ -204,6 +211,18 @@ Copy:
 - `specs/README.md`
 - backend-relevant agents
 
+### If the New Repo Is Mobile Only
+
+Copy:
+
+- `docs/architecture/`
+- `docs/shared/`
+- `docs/mobile/`
+- `docs/adr/README.md`
+- only the ADRs that still apply
+- `specs/README.md`
+- mobile-relevant agents
+
 ### If the New Repo Is Full Stack
 
 Copy:
@@ -212,6 +231,7 @@ Copy:
 - `docs/shared/`
 - `docs/frontend/`
 - `docs/backend/`
+- `docs/mobile/` (if the project includes a mobile client)
 - `docs/adr/`
 - `docs/workflow/`
 - `specs/README.md`
@@ -225,16 +245,16 @@ Then tailor the content before feature delivery begins.
 
 Use each part of the repo for a different question.
 
-| Question                                          | Where to Look                                           |
-| ------------------------------------------------- | ------------------------------------------------------- |
-| Where should this code live?                      | `docs/architecture/`                                    |
-| What can this module depend on?                   | `docs/architecture/`                                    |
-| How should this feature be structured?            | `docs/frontend/` or `docs/backend/`                     |
-| How should this be named?                         | `docs/frontend/naming.md` or `docs/backend/naming.md`   |
-| How should this be tested?                        | `docs/frontend/testing.md` or `docs/backend/testing.md` |
-| How should auth, errors, or contracts work?       | `docs/shared/`                                          |
-| Does this need a durable architecture decision?   | `docs/adr/`                                             |
-| How should work move from idea to implementation? | `docs/workflow/` and `specs/README.md`                  |
+| Question                                          | Where to Look                                                                      |
+| ------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Where should this code live?                      | `docs/architecture/`                                                               |
+| What can this module depend on?                   | `docs/architecture/`                                                               |
+| How should this feature be structured?            | `docs/frontend/`, `docs/backend/`, or `docs/mobile/`                               |
+| How should this be named?                         | `docs/frontend/naming.md`, `docs/backend/naming.md`, or `docs/mobile/naming.md`    |
+| How should this be tested?                        | `docs/frontend/testing.md`, `docs/backend/testing.md`, or `docs/mobile/testing.md` |
+| How should auth, errors, or contracts work?       | `docs/shared/`                                                                     |
+| Does this need a durable architecture decision?   | `docs/adr/`                                                                        |
+| How should work move from idea to implementation? | `docs/workflow/` and `specs/README.md`                                             |
 
 ---
 
@@ -294,7 +314,7 @@ If you want the simplest path:
 1. Read `CONSTITUTION.md`.
 2. Read `docs/architecture/`.
 3. Read `docs/shared/`.
-4. Pick either `docs/frontend/`, `docs/backend/`, or both.
+4. Pick either `docs/frontend/`, `docs/backend/`, `docs/mobile/`, or a combination.
 5. Use `NEW_PROJECT_BOOTSTRAP.md` if you are creating a fresh repo.
 6. Use `EXISTING_PROJECT_ADOPTION.md` if you are improving an existing repo.
 7. Use `specs/README.md` before writing the first real feature or API spec.

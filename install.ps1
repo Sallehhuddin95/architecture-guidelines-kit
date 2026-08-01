@@ -154,6 +154,7 @@ $installMode = Read-Choice -Prompt "What are you setting up?" -DefaultKey "1" -O
 $projectType = Read-Choice -Prompt "What kind of project is this?" -DefaultKey "3" -Options @(
     @{ Key = "frontend"; Label = "Frontend only" },
     @{ Key = "backend"; Label = "Backend only" },
+    @{ Key = "mobile"; Label = "Mobile only (React Native/Expo)" },
     @{ Key = "fullstack"; Label = "Full stack" },
     @{ Key = "generic"; Label = "Generic or undecided" }
 )
@@ -166,6 +167,7 @@ $setupLevel = Read-Choice -Prompt "How much guidance do you want?" -DefaultKey "
 $includeAgents = Read-YesNo -Prompt "Include Copilot custom agents?" -Default ($setupLevel -eq "full")
 $includeWorkflow = Read-YesNo -Prompt "Include workflow guides?" -Default ($setupLevel -eq "full")
 $includeSpecs = Read-YesNo -Prompt "Include spec templates and spec guides?" -Default $true
+$includeMobile = Read-YesNo -Prompt "Also include mobile (React Native/Expo) guidance?" -Default ($projectType -eq "mobile")
 $includeAdrStarters = Read-YesNo -Prompt "Include starter ADR files?" -Default ($setupLevel -eq "full")
 $overwriteExisting = Read-YesNo -Prompt "Overwrite existing matching files in the target repo?" -Default $false
 
@@ -219,10 +221,17 @@ try {
         "backend" {
             Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/backend"
         }
+        "mobile" {
+            Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/mobile"
+        }
         "fullstack" {
             Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/frontend"
             Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/backend"
         }
+    }
+
+    if ($includeMobile -and $projectType -ne "mobile") {
+        Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/mobile"
     }
 
     if ($includeWorkflow) {
@@ -238,6 +247,7 @@ try {
         Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/adr/0002-adopt-layered-fastapi-backend.md"
         Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/adr/0003-use-server-managed-sessions.md"
         Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/adr/0004-reject-client-tampering-of-protected-fields.md"
+        Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/adr/0005-adopt-react-native-expo-for-mobile.md"
     }
 
     if ($includeAgents) {
@@ -271,6 +281,9 @@ try {
     }
     if ($projectType -eq "backend" -or $projectType -eq "fullstack") {
         Write-Host "4. docs/backend/"
+    }
+    if ($projectType -eq "mobile" -or $includeMobile) {
+        Write-Host "4. docs/mobile/"
     }
 
     Write-Host ""

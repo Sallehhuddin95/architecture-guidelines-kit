@@ -13,6 +13,7 @@ Use:
 - `Architect` when the question is about structure, boundaries, dependency direction, or whether a change needs an ADR or spec update
 - `Next.js Feature-Driven Architect` when implementing or shaping frontend work in a Next.js App Router codebase
 - `FastAPI Service Architect` when implementing or shaping backend work in a FastAPI codebase
+- `React Native Mobile Architect` when implementing or shaping mobile work in a React Native (Expo) codebase
 - `Reviewer` when you want findings, risks, regressions, and missing tests before merge
 - `Tester` when you want test strategy, test design, or test implementation guidance
 - `Refactor` when you want structure improvement without changing intended behavior
@@ -27,6 +28,7 @@ Use:
 | `Architect`                        | Protect architecture quality    | boundaries, dependency direction, ADR/spec decisions, ownership questions                        | routine feature implementation                                 |
 | `Next.js Feature-Driven Architect` | Build frontend work correctly   | Next.js feature implementation, rendering choices, frontend structure, frontend testing patterns | backend tasks, review-only work, doc-only work                 |
 | `FastAPI Service Architect`        | Build backend work correctly    | FastAPI endpoints, service layering, contracts, validation, server trust boundaries              | frontend tasks, review-only work, doc-only work                |
+| `React Native Mobile Architect`    | Build mobile work correctly     | React Native (Expo) screens, navigation, secure token storage, mobile testing patterns           | frontend or backend tasks, review-only work, doc-only work     |
 | `Reviewer`                         | Evaluate merge readiness        | bugs, regressions, architecture drift, security risk, missing tests                              | net-new implementation                                         |
 | `Tester`                           | Design and implement validation | test strategy, right test layer, regression coverage, auth/contract/error tests                  | primary feature implementation, general architecture decisions |
 | `Refactor`                         | Improve structure safely        | cleanup, duplication reduction, naming, boundary repair, behavior-preserving change              | net-new features, review-only work                             |
@@ -95,6 +97,26 @@ Good prompts:
 - `Add validation and tests for this protected-field update flow.`
 
 Use this only when the target repo actually uses the documented FastAPI-oriented stack.
+
+### React Native Mobile Architect
+
+Use this agent when the task is mobile implementation or mobile design in a React Native (Expo) project.
+
+Best for:
+
+- feature/screen structure
+- Expo Router navigation decisions
+- TanStack Query usage on mobile
+- secure token storage and auth-aware navigation
+- mobile testing coverage decisions (Jest/RNTL/Maestro)
+
+Good prompts:
+
+- `Implement this onboarding flow using the local mobile guideline.`
+- `Where should these hooks, services, and types live in this Expo feature?`
+- `Add tests for this screen's async data flow.`
+
+Use this only when the target repo actually uses the documented React Native (Expo) stack.
 
 ### Reviewer
 
@@ -182,6 +204,7 @@ If the main question is:
 - `Where should this go?` use `Architect`
 - `How should I build this frontend work?` use `Next.js Feature-Driven Architect`
 - `How should I build this backend work?` use `FastAPI Service Architect`
+- `How should I build this mobile work?` use `React Native Mobile Architect`
 - `Is this safe and correct to merge?` use `Reviewer`
 - `How should this be tested?` use `Tester`
 - `How can I clean this up safely?` use `Refactor`

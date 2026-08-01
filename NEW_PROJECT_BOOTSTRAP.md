@@ -8,7 +8,7 @@ Use this checklist when you create a new repo and want to apply this guidelines 
 
 Before copying anything, decide:
 
-- is the repo frontend only, backend only, or full stack?
+- is the repo frontend only, backend only, mobile only, or some combination?
 - what framework and runtime will actually be used?
 - will the team use specs, ADRs, and Copilot agents from day one?
 
@@ -29,6 +29,7 @@ Then add only what matches the project:
 
 - `docs/frontend/` for frontend work
 - `docs/backend/` for backend work
+- `docs/mobile/` for mobile (React Native/Expo) work
 - `docs/workflow/` if the team will actually follow workflow docs
 - `.github/agents/` if the repo will use Copilot custom agents
 

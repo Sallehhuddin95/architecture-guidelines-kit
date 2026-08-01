@@ -88,6 +88,7 @@ Choose based on the actual repo:
 
 - `docs/frontend/` if the project has frontend structure, naming, and testing issues
 - `docs/backend/` if the project has backend layering, contract, security, migration, or testing issues
+- `docs/mobile/` if the project has a React Native/Expo mobile client with structure, naming, or testing issues
 
 Prioritize the docs that solve current pain, not theoretical future pain.
 

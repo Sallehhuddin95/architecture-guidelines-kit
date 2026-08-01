@@ -29,7 +29,7 @@ This repository governs:
 
 - architecture and boundaries
 - shared cross-stack concerns
-- frontend and backend engineering conventions
+- frontend, backend, and mobile engineering conventions
 - ADR usage
 - specs usage
 - workflow expectations
