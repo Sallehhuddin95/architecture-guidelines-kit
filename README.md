@@ -136,6 +136,7 @@ Then add:
 - `docs/shared/api-contract.md`
 - `docs/shared/error-handling.md`
 - `docs/shared/versioning.md`
+- `docs/shared/writing-style.md`
 
 These prevent common cross-team and cross-layer inconsistencies.
 
