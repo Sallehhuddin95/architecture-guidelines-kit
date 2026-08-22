@@ -10,7 +10,7 @@ It is meant to help you set up or improve another project by giving you:
 - shared security and API contract rules
 - ADR templates and baseline decisions
 - workflow documents
-- Copilot custom agents
+- Copilot custom agents (`.github/agents/`) and opencode agents (`.opencode/agents/`)
 
 It is not an application repo. It is a reference repo for standards, structure, and project governance.
 
@@ -30,9 +30,10 @@ This repo is split by purpose.
 - `docs/workflow/`: how work should move through feature delivery, bug fixing, review, refactoring, and release
 - `specs/`: source-of-truth behavior and contract specifications
 - `.github/agents/`: Copilot custom agents that enforce or apply the guidance
+- `.opencode/`: opencode configuration and custom agents that enforce or apply the same guidance
 - `.github/instructions/`: pointer stubs only, not the source of truth; they redirect to `docs/frontend/`, `docs/backend/`, and `docs/mobile/` and are not meant to be copied into target repos
 
-If you plan to use the custom agents, see `.github/agents/README.md` for when to use each one.
+If you plan to use the custom agents, see `.github/agents/README.md` (Copilot) or `.opencode/README.md` (opencode) for when to use each one.
 
 If you are new to this repo, start with `CONSTITUTION.md`, then `docs/architecture/`, then `docs/shared/`, then only the stack-specific folders you actually need.
 
@@ -60,18 +61,24 @@ If this repository is published on GitHub, you can install the selected guidelin
 From the target project repo, run:
 
 ```powershell
-$temp = Join-Path $env:TEMP ("architecture-guidelines-kit-" + [guid]::NewGuid().ToString("N"))
-git clone --depth 1 https://github.com/Sallehhuddin95/architecture-guidelines-kit.git $temp
-powershell -ExecutionPolicy Bypass -File (Join-Path $temp "install.ps1")
-Remove-Item -LiteralPath $temp -Recurse -Force
+irm https://raw.githubusercontent.com/Sallehhuddin95/architecture-guidelines-kit/main/install.ps1 | iex
 ```
 
 The script will:
 
-1. ask a few setup questions
-2. use the cloned guidelines repo as the source
+1. download and run itself from the guidelines repo
+2. ask a few setup questions
 3. copy only the matching files into the current project
 4. print a summary of what was installed and what to read first
+
+If you prefer not to run a remote script directly, the manual alternative is:
+
+```powershell
+$temp = Join-Path $env:TEMP "agk"
+git clone --depth 1 https://github.com/Sallehhuddin95/architecture-guidelines-kit.git $temp
+powershell -ExecutionPolicy Bypass -File (Join-Path $temp "install.ps1")
+Remove-Item -LiteralPath $temp -Recurse -Force
+```
 
 ### 1. For a New Project
 
@@ -84,7 +91,7 @@ Start with these groups:
 3. `docs/adr/`
 4. `specs/README.md`
 5. stack-specific docs from `docs/frontend/`, `docs/backend/`, and/or `docs/mobile/`
-6. `.github/agents/` if you use Copilot custom agents
+6. `.github/agents/` and/or `.opencode/` if you use custom agents
 
 Then adapt them immediately to the real stack, real boundaries, and real delivery style of the new repo.
 
@@ -179,9 +186,9 @@ These help once real delivery work starts.
 
 ### Phase 6: Agents
 
-If the target repo uses Copilot custom agents, copy `.github/agents/` and make sure the referenced docs also exist in the target repo.
+If the target repo uses custom agents, copy `.github/agents/` (Copilot) and/or `.opencode/` (opencode) and make sure the referenced docs also exist in the target repo.
 
-Use `.github/agents/README.md` as the quick selector for choosing the right agent per task.
+Use `.github/agents/README.md` or `.opencode/README.md` as the quick selector for choosing the right agent per task.
 
 ---
 
@@ -235,7 +242,7 @@ Copy:
 - `docs/adr/`
 - `docs/workflow/`
 - `specs/README.md`
-- `.github/agents/`
+- `.github/agents/` and `.opencode/`
 
 Then tailor the content before feature delivery begins.
 
