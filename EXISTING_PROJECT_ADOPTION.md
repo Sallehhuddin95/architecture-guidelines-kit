@@ -35,7 +35,7 @@ Recommended order:
 3. the stack-specific docs that address active problems
 4. ADRs for important current decisions
 5. specs and workflow docs only when the team is ready to use them
-6. agents only if the repo uses Copilot custom agents in practice
+6. agents only if the repo uses Copilot custom agents or opencode agents in practice
 
 This keeps the change set manageable and prevents documentation from getting ahead of team behavior.
 
@@ -162,7 +162,7 @@ If the team does not review against the guidance, the documents will decay quick
 
 ## 10. Add Agents Only If They Match Real Team Usage
 
-If the project uses Copilot custom agents, copy the relevant files from `.github/agents/`.
+If the project uses Copilot custom agents or opencode agents, copy the relevant files from `.github/agents/` and/or `.opencode/`.
 
 Before doing that, confirm:
 

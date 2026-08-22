@@ -10,7 +10,7 @@ Before copying anything, decide:
 
 - is the repo frontend only, backend only, mobile only, or some combination?
 - what framework and runtime will actually be used?
-- will the team use specs, ADRs, and Copilot agents from day one?
+- will the team use specs, ADRs, and custom agents (Copilot and/or opencode) from day one?
 
 Do not copy guidance for stacks or workflows the project will not use.
 
@@ -32,6 +32,7 @@ Then add only what matches the project:
 - `docs/mobile/` for mobile (React Native/Expo) work
 - `docs/workflow/` if the team will actually follow workflow docs
 - `.github/agents/` if the repo will use Copilot custom agents
+- `.opencode/` if the repo will use opencode agents
 
 ---
 
@@ -94,9 +95,9 @@ This is the point where the new repo starts using the guidance rather than just 
 
 ## 7. Add Agents Only If They Will Be Used
 
-If the team uses Copilot custom agents:
+If the team uses custom agents:
 
-- copy the relevant agent files from `.github/agents/`
+- copy the relevant agent files from `.github/agents/` (Copilot) and/or `.opencode/` (opencode)
 - make sure every referenced doc exists in the new repo
 - remove agents that do not match the project stack
 

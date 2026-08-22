@@ -164,7 +164,7 @@ $setupLevel = Read-Choice -Prompt "How much guidance do you want?" -DefaultKey "
     @{ Key = "full"; Label = "Full governance setup" }
 )
 
-$includeAgents = Read-YesNo -Prompt "Include Copilot custom agents?" -Default ($setupLevel -eq "full")
+$includeAgents = Read-YesNo -Prompt "Include custom agents (Copilot and opencode)?" -Default ($setupLevel -eq "full")
 $includeWorkflow = Read-YesNo -Prompt "Include workflow guides?" -Default ($setupLevel -eq "full")
 $includeSpecs = Read-YesNo -Prompt "Include spec templates and spec guides?" -Default $true
 $includeMobile = Read-YesNo -Prompt "Also include mobile (React Native/Expo) guidance?" -Default ($projectType -eq "mobile")
@@ -181,7 +181,7 @@ $skipped = [System.Collections.Generic.List[string]]::new()
 $pathsToCopy = [System.Collections.Generic.List[string]]::new()
 
 try {
-    if (Test-InstallerSourceRoot -Path $PSScriptRoot) {
+    if (-not [string]::IsNullOrWhiteSpace($PSScriptRoot) -and (Test-InstallerSourceRoot -Path $PSScriptRoot)) {
         $sourceRoot = $PSScriptRoot
         Write-Section "Using local source repo"
         Write-Host $sourceRoot
@@ -252,6 +252,7 @@ try {
 
     if ($includeAgents) {
         Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/agents"
+        Add-UniquePath -Paths $pathsToCopy -RelativePath ".opencode"
     }
 
     Write-Section "Copying selected files"
