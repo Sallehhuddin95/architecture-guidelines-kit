@@ -11,6 +11,7 @@ For TypeScript type/interface naming, variable and function naming, constant nam
 - Prefer explicit, domain-meaningful names over short or generic names.
 - Keep naming consistent with the equivalent web frontend concept when the concept is shared (services, hooks, schemas, query keys).
 - Use suffixes only when they clarify intent, not as noise.
+- Code identifiers must be English by default, even when the app UI is in another language. See `docs/shared/identifier-language.md`.
 
 ---
 

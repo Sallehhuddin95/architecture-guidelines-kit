@@ -137,6 +137,7 @@ Then add:
 - `docs/shared/error-handling.md`
 - `docs/shared/versioning.md`
 - `docs/shared/writing-style.md`
+- `docs/shared/identifier-language.md`
 
 These prevent common cross-team and cross-layer inconsistencies.
 

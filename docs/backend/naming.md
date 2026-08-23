@@ -12,6 +12,7 @@ The goal is to keep route handlers, schemas, services, repositories, models, mig
 - Keep one concept under one stable name across routes, schemas, services, repositories, and tests.
 - Use names that reveal layer responsibility.
 - Avoid suffix noise unless it clarifies intent.
+- Code identifiers must be English by default, even when the app UI is in another language. See `docs/shared/identifier-language.md`.
 
 ---
 
