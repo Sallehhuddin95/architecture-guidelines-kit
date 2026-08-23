@@ -10,6 +10,7 @@ This document defines naming rules for the Next.js App Router and TypeScript cod
 - Optimize for searchability: one concept should keep one stable name across files.
 - Keep naming consistent across layers (service, hook, component, test).
 - Use suffixes only when they clarify intent, not as noise.
+- Code identifiers must be English by default, even when the app UI is in another language. See `docs/shared/identifier-language.md`.
 
 ---
 
