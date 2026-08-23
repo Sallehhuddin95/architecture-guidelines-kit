@@ -147,13 +147,16 @@ Add only what your project uses.
 
 Frontend:
 
-- `docs/frontend/FRONTEND_GUIDELINE.md`
+- `docs/frontend/FRONTEND_GUIDELINE.md` (Next.js)
+- `docs/frontend/ANGULAR_GUIDELINE.md` (Angular standalone)
 - `docs/frontend/naming.md`
 - `docs/frontend/testing.md`
 
 Backend:
 
-- `docs/backend/BACKEND_GUIDELINE.md`
+- `docs/backend/BACKEND_GUIDELINE.md` (FastAPI)
+- `docs/backend/DJANGO_GUIDELINE.md` (Django + DRF)
+- `docs/backend/EXPRESS_GUIDELINE.md` (Express + TypeScript)
 - `docs/backend/naming.md`
 - `docs/backend/api-design.md`
 - `docs/backend/database.md`

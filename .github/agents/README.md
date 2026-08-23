@@ -12,7 +12,10 @@ Use:
 
 - `Architect` when the question is about structure, boundaries, dependency direction, or whether a change needs an ADR or spec update
 - `Next.js Feature-Driven Architect` when implementing or shaping frontend work in a Next.js App Router codebase
+- `Angular Feature-Driven Architect` when implementing or shaping frontend work in an Angular (standalone components) codebase
 - `FastAPI Service Architect` when implementing or shaping backend work in a FastAPI codebase
+- `Django Service Architect` when implementing or shaping backend work in a Django codebase
+- `Express Service Architect` when implementing or shaping backend work in an Express + TypeScript codebase
 - `React Native Mobile Architect` when implementing or shaping mobile work in a React Native (Expo) codebase
 - `Reviewer` when you want findings, risks, regressions, and missing tests before merge
 - `Tester` when you want test strategy, test design, or test implementation guidance
@@ -27,7 +30,10 @@ Use:
 | ---------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------- |
 | `Architect`                        | Protect architecture quality    | boundaries, dependency direction, ADR/spec decisions, ownership questions                        | routine feature implementation                                 |
 | `Next.js Feature-Driven Architect` | Build frontend work correctly   | Next.js feature implementation, rendering choices, frontend structure, frontend testing patterns | backend tasks, review-only work, doc-only work                 |
+| `Angular Feature-Driven Architect` | Build frontend work correctly   | Angular standalone feature implementation, server-state and signals, frontend structure, testing | backend tasks, review-only work, doc-only work                 |
 | `FastAPI Service Architect`        | Build backend work correctly    | FastAPI endpoints, service layering, contracts, validation, server trust boundaries              | frontend tasks, review-only work, doc-only work                |
+| `Django Service Architect`        | Build backend work correctly    | Django apps, DRF contracts, service layering, migrations, server trust boundaries                | frontend tasks, review-only work, doc-only work                |
+| `Express Service Architect`       | Build backend work correctly    | Express routes, zod contracts, service layering, Prisma repositories, server trust boundaries    | frontend tasks, review-only work, doc-only work                |
 | `React Native Mobile Architect`    | Build mobile work correctly     | React Native (Expo) screens, navigation, secure token storage, mobile testing patterns           | frontend or backend tasks, review-only work, doc-only work     |
 | `Reviewer`                         | Evaluate merge readiness        | bugs, regressions, architecture drift, security risk, missing tests                              | net-new implementation                                         |
 | `Tester`                           | Design and implement validation | test strategy, right test layer, regression coverage, auth/contract/error tests                  | primary feature implementation, general architecture decisions |
@@ -202,8 +208,8 @@ Use this when the output should primarily be governance or specification content
 If the main question is:
 
 - `Where should this go?` use `Architect`
-- `How should I build this frontend work?` use `Next.js Feature-Driven Architect`
-- `How should I build this backend work?` use `FastAPI Service Architect`
+- `How should I build this frontend work?` use `Next.js Feature-Driven Architect` or `Angular Feature-Driven Architect`
+- `How should I build this backend work?` use `FastAPI Service Architect`, `Django Service Architect`, or `Express Service Architect`
 - `How should I build this mobile work?` use `React Native Mobile Architect`
 - `Is this safe and correct to merge?` use `Reviewer`
 - `How should this be tested?` use `Tester`

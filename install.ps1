@@ -64,6 +64,53 @@ function Read-Choice {
     }
 }
 
+function Read-MultiChoice {
+    param(
+        [string]$Prompt,
+        [object[]]$Options
+    )
+
+    while ($true) {
+        Write-Host ""
+        Write-Host $Prompt -ForegroundColor Yellow
+
+        for ($index = 0; $index -lt $Options.Count; $index++) {
+            $option = $Options[$index]
+            Write-Host ("{0}. {1}" -f ($index + 1), $option.Label)
+        }
+
+        $raw = Read-Host "Choose numbers separated by commas (e.g. 1,2)"
+
+        $keys = @()
+        $valid = $true
+
+        foreach ($part in ($raw -split ',')) {
+            $part = $part.Trim()
+            if ($part -match '^\d+$') {
+                $numericIndex = [int]$part - 1
+                if ($numericIndex -ge 0 -and $numericIndex -lt $Options.Count) {
+                    $key = $Options[$numericIndex].Key
+                    if ($keys -notcontains $key) {
+                        $keys += $key
+                    }
+                }
+                else {
+                    $valid = $false
+                }
+            }
+            elseif (-not [string]::IsNullOrWhiteSpace($part)) {
+                $valid = $false
+            }
+        }
+
+        if ($valid -and $keys.Count -gt 0) {
+            return $keys
+        }
+
+        Write-Host "Invalid choice. Try again." -ForegroundColor Red
+    }
+}
+
 function Read-YesNo {
     param(
         [string]$Prompt,
@@ -159,6 +206,24 @@ $projectType = Read-Choice -Prompt "What kind of project is this?" -DefaultKey "
     @{ Key = "generic"; Label = "Generic or undecided" }
 )
 
+$frontendFrameworks = @()
+$backendFrameworks = @()
+
+if ($projectType -eq "frontend" -or $projectType -eq "fullstack") {
+    $frontendFrameworks = Read-MultiChoice -Prompt "Which frontend framework(s)?" -Options @(
+        @{ Key = "nextjs"; Label = "Next.js" },
+        @{ Key = "angular"; Label = "Angular (standalone)" }
+    )
+}
+
+if ($projectType -eq "backend" -or $projectType -eq "fullstack") {
+    $backendFrameworks = Read-MultiChoice -Prompt "Which backend framework(s)?" -Options @(
+        @{ Key = "fastapi"; Label = "FastAPI" },
+        @{ Key = "django"; Label = "Django + DRF" },
+        @{ Key = "express"; Label = "Express + TypeScript" }
+    )
+}
+
 $setupLevel = Read-Choice -Prompt "How much guidance do you want?" -DefaultKey "1" -Options @(
     @{ Key = "minimal"; Label = "Minimal core guidance" },
     @{ Key = "full"; Label = "Full governance setup" }
@@ -214,23 +279,40 @@ try {
         Add-UniquePath -Paths $pathsToCopy -RelativePath "EXISTING_PROJECT_ADOPTION.md"
     }
 
-    switch ($projectType) {
-        "frontend" {
-            Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/frontend"
-        }
-        "backend" {
-            Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/backend"
-        }
-        "mobile" {
-            Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/mobile"
-        }
-        "fullstack" {
-            Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/frontend"
-            Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/backend"
+    foreach ($framework in $frontendFrameworks) {
+        switch ($framework) {
+            "nextjs" {
+                Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/frontend/FRONTEND_GUIDELINE.md"
+                Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/frontend/naming.md"
+                Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/frontend/testing.md"
+            }
+            "angular" {
+                Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/frontend/ANGULAR_GUIDELINE.md"
+            }
         }
     }
 
-    if ($includeMobile -and $projectType -ne "mobile") {
+    foreach ($framework in $backendFrameworks) {
+        switch ($framework) {
+            "fastapi" {
+                Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/backend/BACKEND_GUIDELINE.md"
+                Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/backend/api-design.md"
+                Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/backend/database.md"
+                Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/backend/migrations.md"
+                Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/backend/naming.md"
+                Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/backend/security.md"
+                Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/backend/testing.md"
+            }
+            "django" {
+                Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/backend/DJANGO_GUIDELINE.md"
+            }
+            "express" {
+                Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/backend/EXPRESS_GUIDELINE.md"
+            }
+        }
+    }
+
+    if ($includeMobile) {
         Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/mobile"
     }
 
@@ -243,16 +325,89 @@ try {
     }
 
     if ($includeAdrStarters) {
-        Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/adr/0001-adopt-feature-driven-frontend.md"
-        Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/adr/0002-adopt-layered-fastapi-backend.md"
         Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/adr/0003-use-server-managed-sessions.md"
         Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/adr/0004-reject-client-tampering-of-protected-fields.md"
-        Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/adr/0005-adopt-react-native-expo-for-mobile.md"
+
+        foreach ($framework in $frontendFrameworks) {
+            switch ($framework) {
+                "nextjs" {
+                    Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/adr/0001-adopt-feature-driven-frontend.md"
+                }
+                "angular" {
+                    Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/adr/0006-adopt-angular-standalone-frontend.md"
+                }
+            }
+        }
+
+        foreach ($framework in $backendFrameworks) {
+            switch ($framework) {
+                "fastapi" {
+                    Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/adr/0002-adopt-layered-fastapi-backend.md"
+                }
+                "django" {
+                    Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/adr/0007-adopt-django-drf-backend.md"
+                }
+                "express" {
+                    Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/adr/0008-adopt-express-typescript-backend.md"
+                }
+            }
+        }
+
+        if ($includeMobile) {
+            Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/adr/0005-adopt-react-native-expo-for-mobile.md"
+        }
     }
 
     if ($includeAgents) {
-        Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/agents"
-        Add-UniquePath -Paths $pathsToCopy -RelativePath ".opencode"
+        Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/agents/README.md"
+        Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/agents/architect.agent.md"
+        Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/agents/reviewer.agent.md"
+        Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/agents/tester.agent.md"
+        Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/agents/refactor.agent.md"
+        Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/agents/documentation.agent.md"
+
+        Add-UniquePath -Paths $pathsToCopy -RelativePath ".opencode/README.md"
+        Add-UniquePath -Paths $pathsToCopy -RelativePath ".opencode/opencode.json"
+        Add-UniquePath -Paths $pathsToCopy -RelativePath ".opencode/agents/architect.md"
+        Add-UniquePath -Paths $pathsToCopy -RelativePath ".opencode/agents/reviewer.md"
+        Add-UniquePath -Paths $pathsToCopy -RelativePath ".opencode/agents/tester.md"
+        Add-UniquePath -Paths $pathsToCopy -RelativePath ".opencode/agents/refactor.md"
+        Add-UniquePath -Paths $pathsToCopy -RelativePath ".opencode/agents/documentation.md"
+
+        foreach ($framework in $frontendFrameworks) {
+            switch ($framework) {
+                "nextjs" {
+                    Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/agents/expert-nextjs-developer.agent.md"
+                    Add-UniquePath -Paths $pathsToCopy -RelativePath ".opencode/agents/nextjs-architect.md"
+                }
+                "angular" {
+                    Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/agents/expert-angular-developer.agent.md"
+                    Add-UniquePath -Paths $pathsToCopy -RelativePath ".opencode/agents/angular-architect.md"
+                }
+            }
+        }
+
+        foreach ($framework in $backendFrameworks) {
+            switch ($framework) {
+                "fastapi" {
+                    Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/agents/expert-fastapi-developer.agent.md"
+                    Add-UniquePath -Paths $pathsToCopy -RelativePath ".opencode/agents/fastapi-architect.md"
+                }
+                "django" {
+                    Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/agents/expert-django-developer.agent.md"
+                    Add-UniquePath -Paths $pathsToCopy -RelativePath ".opencode/agents/django-architect.md"
+                }
+                "express" {
+                    Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/agents/expert-express-developer.agent.md"
+                    Add-UniquePath -Paths $pathsToCopy -RelativePath ".opencode/agents/express-architect.md"
+                }
+            }
+        }
+
+        if ($includeMobile) {
+            Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/agents/expert-react-native-developer.agent.md"
+            Add-UniquePath -Paths $pathsToCopy -RelativePath ".opencode/agents/react-native-architect.md"
+        }
     }
 
     Write-Section "Copying selected files"
@@ -277,13 +432,13 @@ try {
     Write-Host "1. CONSTITUTION.md"
     Write-Host "2. docs/architecture/ARCHITECTURE_GUIDELINE.md"
     Write-Host "3. docs/shared/"
-    if ($projectType -eq "frontend" -or $projectType -eq "fullstack") {
-        Write-Host "4. docs/frontend/"
+    if ($frontendFrameworks.Count -gt 0) {
+        Write-Host "4. the copied frontend framework doc(s) in docs/frontend/"
     }
-    if ($projectType -eq "backend" -or $projectType -eq "fullstack") {
-        Write-Host "4. docs/backend/"
+    if ($backendFrameworks.Count -gt 0) {
+        Write-Host "4. the copied backend framework doc(s) in docs/backend/"
     }
-    if ($projectType -eq "mobile" -or $includeMobile) {
+    if ($includeMobile) {
         Write-Host "4. docs/mobile/"
     }
 

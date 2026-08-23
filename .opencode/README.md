@@ -32,7 +32,10 @@ Use:
 
 - `architect` when the question is about structure, boundaries, dependency direction, or whether a change needs an ADR or spec update
 - `nextjs-architect` when implementing or shaping frontend work in a Next.js App Router codebase
+- `angular-architect` when implementing or shaping frontend work in an Angular (standalone components) codebase
 - `fastapi-architect` when implementing or shaping backend work in a FastAPI codebase
+- `django-architect` when implementing or shaping backend work in a Django codebase
+- `express-architect` when implementing or shaping backend work in an Express + TypeScript codebase
 - `react-native-architect` when implementing or shaping mobile work in a React Native (Expo) codebase
 - `reviewer` when you want findings, risks, regressions, and missing tests before merge
 - `tester` when you want test strategy, test design, or test implementation guidance
@@ -47,7 +50,10 @@ Use:
 | ------------------------ | ------------------------------- | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------- |
 | `architect`              | Protect architecture quality    | boundaries, dependency direction, ADR/spec decisions, ownership questions                        | routine feature implementation                                 |
 | `nextjs-architect`       | Build frontend work correctly   | Next.js feature implementation, rendering choices, frontend structure, frontend testing patterns | backend tasks, review-only work, doc-only work                 |
+| `angular-architect`      | Build frontend work correctly   | Angular standalone feature implementation, server-state and signals, frontend structure, testing | backend tasks, review-only work, doc-only work                 |
 | `fastapi-architect`      | Build backend work correctly    | FastAPI endpoints, service layering, contracts, validation, server trust boundaries              | frontend tasks, review-only work, doc-only work                |
+| `django-architect`       | Build backend work correctly    | Django apps, DRF contracts, service layering, migrations, server trust boundaries                | frontend tasks, review-only work, doc-only work                |
+| `express-architect`      | Build backend work correctly    | Express routes, zod contracts, service layering, Prisma repositories, server trust boundaries    | frontend tasks, review-only work, doc-only work                |
 | `react-native-architect` | Build mobile work correctly     | React Native (Expo) screens, navigation, secure token storage, mobile testing patterns           | frontend or backend tasks, review-only work, doc-only work     |
 | `reviewer`               | Evaluate merge readiness        | bugs, regressions, architecture drift, security risk, missing tests                              | net-new implementation                                         |
 | `tester`                 | Design and implement validation | test strategy, right test layer, regression coverage, auth/contract/error tests                  | primary feature implementation, general architecture decisions |
@@ -61,8 +67,8 @@ Use:
 If the main question is:
 
 - `Where should this go?` use `@architect`
-- `How should I build this frontend work?` use `@nextjs-architect`
-- `How should I build this backend work?` use `@fastapi-architect`
+- `How should I build this frontend work?` use `@nextjs-architect` or `@angular-architect`
+- `How should I build this backend work?` use `@fastapi-architect`, `@django-architect`, or `@express-architect`
 - `How should I build this mobile work?` use `@react-native-architect`
 - `Is this safe and correct to merge?` use `@reviewer`
 - `How should this be tested?` use `@tester`
