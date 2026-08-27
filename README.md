@@ -138,6 +138,7 @@ Then add:
 - `docs/shared/versioning.md`
 - `docs/shared/writing-style.md`
 - `docs/shared/identifier-language.md`
+- `docs/shared/static-analysis.md`
 
 These prevent common cross-team and cross-layer inconsistencies.
 

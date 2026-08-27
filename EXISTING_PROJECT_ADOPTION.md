@@ -68,6 +68,7 @@ Then adopt:
 - `docs/shared/authentication.md`
 - `docs/shared/api-contract.md`
 - `docs/shared/error-handling.md`
+- `docs/shared/static-analysis.md`
 
 These help stabilize the rules that usually drift the most in mature repos:
 
