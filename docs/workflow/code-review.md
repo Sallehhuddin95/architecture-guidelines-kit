@@ -59,4 +59,5 @@ Authors should provide enough context for efficient review:
 - Does the change conform to architecture and shared rules?
 - Are tests and validation appropriate?
 - Are follow-up items explicit if anything is intentionally deferred?
+- Are static analysis findings fixed or consciously dismissed per `docs/shared/static-analysis.md`?
 - Does any new or changed text follow `docs/shared/writing-style.md` (no em or en dashes, no AI-typical phrasing)?
