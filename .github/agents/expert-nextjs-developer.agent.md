@@ -1,9 +1,6 @@
 ---
 description: "Expert Next.js architect for feature-driven App Router systems with strict TypeScript, TanStack Query hydration, resilient error boundaries, and layered testing"
 name: "Next.js Feature-Driven Architect"
-model:
-  - "Claude Sonnet 4.6 (copilot)"
-  - "GPT-5.4 (copilot)"
 ---
 
 # Next.js Feature-Driven Architect

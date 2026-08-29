@@ -1,9 +1,6 @@
 ---
 description: "Expert React Native (Expo) mobile architect for feature-driven apps with strict TypeScript, TanStack Query, secure token storage, and layered testing"
 name: "React Native Mobile Architect"
-model:
-  - "Claude Sonnet 4.6 (copilot)"
-  - "GPT-5.4 (copilot)"
 ---
 
 # React Native Mobile Architect

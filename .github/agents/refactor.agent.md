@@ -1,9 +1,6 @@
 ---
 description: "Refactoring-focused agent for safe structural improvement, duplication reduction, boundary cleanup, and behavior-preserving change"
 name: "Refactor"
-model:
-  - "Claude Sonnet 4.6 (copilot)"
-  - "GPT-5.4 (copilot)"
 ---
 
 # Refactor

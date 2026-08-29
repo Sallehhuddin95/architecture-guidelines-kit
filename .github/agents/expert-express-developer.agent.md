@@ -1,9 +1,6 @@
 ﻿---
 description: "Expert Express backend architect for layered TypeScript services, zod boundary contracts, Prisma repositories, centralized error handling, and vitest-driven validation"
 name: "Express Service Architect"
-model:
-  - "Claude Sonnet 4.6 (copilot)"
-  - "GPT-5.4 (copilot)"
 ---
 
 # Express Service Architect

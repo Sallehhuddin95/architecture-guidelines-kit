@@ -2,9 +2,11 @@
 
 This file is not the source of truth.
 
-The canonical backend architecture and development guideline lives at:
+The canonical backend architecture and development guidelines live at:
 
-- [`docs/backend/BACKEND_GUIDELINE.md`](../../docs/backend/BACKEND_GUIDELINE.md)
+- [`docs/backend/BACKEND_GUIDELINE.md`](../../docs/backend/BACKEND_GUIDELINE.md) (FastAPI)
+- [`docs/backend/DJANGO_GUIDELINE.md`](../../docs/backend/DJANGO_GUIDELINE.md) (Django + DRF)
+- [`docs/backend/EXPRESS_GUIDELINE.md`](../../docs/backend/EXPRESS_GUIDELINE.md) (Express + TypeScript)
 
 Related canonical backend docs:
 

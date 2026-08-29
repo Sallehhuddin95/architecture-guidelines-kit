@@ -1,9 +1,6 @@
 ﻿---
 description: "Expert Angular architect for feature-driven standalone component apps with strict TypeScript, TanStack Query server state, resilient error handling, and layered testing"
 name: "Angular Feature-Driven Architect"
-model:
-  - "Claude Sonnet 4.6 (copilot)"
-  - "GPT-5.4 (copilot)"
 ---
 
 # Angular Feature-Driven Architect

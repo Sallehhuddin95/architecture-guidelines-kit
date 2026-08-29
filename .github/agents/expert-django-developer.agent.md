@@ -1,9 +1,6 @@
 ﻿---
 description: "Expert Django backend architect for DRF contracts, app-by-capability structure, service-layer business rules, PostgreSQL migrations, and pytest-driven validation"
 name: "Django Service Architect"
-model:
-  - "Claude Sonnet 4.6 (copilot)"
-  - "GPT-5.4 (copilot)"
 ---
 
 # Django Service Architect
