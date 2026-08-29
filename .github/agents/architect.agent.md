@@ -1,9 +1,6 @@
 ---
 description: "Architecture-focused agent for system boundaries, dependency rules, ADR-aware decisions, and governance compliance"
 name: "Architect"
-model:
-  - "Claude Sonnet 4.6 (copilot)"
-  - "GPT-5.4 (copilot)"
 ---
 
 # Architect

@@ -27,7 +27,7 @@ This repo is split by purpose.
 - `docs/mobile/`: mobile (React Native/Expo) implementation standards
 - `docs/shared/`: cross-stack rules such as auth, API contracts, and error handling
 - `docs/adr/`: architecture decision records and ADR guidance
-- `docs/workflow/`: how work should move through feature delivery, bug fixing, review, refactoring, and release
+- `docs/workflow/`: how work should move through feature delivery, bug fixing, review, refactoring, release, and CI/CD
 - `specs/`: source-of-truth behavior and contract specifications
 - `.github/agents/`: Copilot custom agents that enforce or apply the guidance
 - `.opencode/`: opencode configuration and custom agents that enforce or apply the same guidance
@@ -56,12 +56,20 @@ There are two common paths.
 
 ### Command Line Install
 
-If this repository is published on GitHub, you can install the selected guideline files into another repository with the PowerShell bootstrap script at the repo root.
+If this repository is published on GitHub, you can install the selected guideline files into another repository with a bootstrap script at the repo root.
 
 From the target project repo, run:
 
+Windows (PowerShell):
+
 ```powershell
 irm https://raw.githubusercontent.com/Sallehhuddin95/architecture-guidelines-kit/main/install.ps1 | iex
+```
+
+Linux or macOS (bash):
+
+```bash
+bash <(curl -sL https://raw.githubusercontent.com/Sallehhuddin95/architecture-guidelines-kit/main/install.sh)
 ```
 
 The script will:
@@ -71,7 +79,7 @@ The script will:
 3. copy only the matching files into the current project
 4. print a summary of what was installed and what to read first
 
-If you prefer not to run a remote script directly, the manual alternative is:
+If you prefer not to run a remote script directly, the manual alternative for Windows is:
 
 ```powershell
 $temp = Join-Path $env:TEMP "agk"
@@ -79,6 +87,22 @@ git clone --depth 1 https://github.com/Sallehhuddin95/architecture-guidelines-ki
 powershell -ExecutionPolicy Bypass -File (Join-Path $temp "install.ps1")
 Remove-Item -LiteralPath $temp -Recurse -Force
 ```
+
+The manual alternative for Linux or macOS is:
+
+```bash
+temp=$(mktemp -d)
+git clone --depth 1 https://github.com/Sallehhuddin95/architecture-guidelines-kit.git "$temp"
+bash "$temp/install.sh"
+rm -rf "$temp"
+```
+
+You can override the source repo and branch if needed:
+
+- PowerShell: `powershell -File install.ps1 -SourceRepo "owner/repo" -Branch "main"`
+- bash: `SOURCE_REPO=owner/repo BRANCH=main bash install.sh`
+
+The PowerShell script also runs on Linux and macOS when PowerShell 7 (`pwsh`) is installed: `pwsh -File install.ps1`.
 
 ### 1. For a New Project
 
@@ -187,6 +211,7 @@ Use:
 - `docs/workflow/refactoring.md`
 - `docs/workflow/code-review.md`
 - `docs/workflow/release.md`
+- `docs/workflow/ci-cd.md`
 
 These help once real delivery work starts.
 
@@ -317,6 +342,14 @@ The best use of this repo is:
 - tailor quickly
 - enforce in reviews
 - evolve with real project decisions
+
+---
+
+## License
+
+This repository is licensed under the MIT License. See `LICENSE` for the full text.
+
+The guidance is meant to be copied and adapted into target repos. Each target repo should choose and document its own license; do not assume the MIT license here applies to a project that uses this guidance.
 
 ---
 

@@ -1,9 +1,6 @@
 ---
 description: "Expert FastAPI backend architect for layered services, PostgreSQL repositories, Alembic migrations, Pydantic v2 contracts, and pytest-driven validation"
 name: "FastAPI Service Architect"
-model:
-  - "Claude Sonnet 4.6 (copilot)"
-  - "GPT-5.4 (copilot)"
 ---
 
 # FastAPI Service Architect

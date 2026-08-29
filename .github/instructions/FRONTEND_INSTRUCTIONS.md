@@ -2,9 +2,10 @@
 
 This file is not the source of truth.
 
-The canonical frontend architecture and development guideline lives at:
+The canonical frontend architecture and development guidelines live at:
 
-- [`docs/frontend/FRONTEND_GUIDELINE.md`](../../docs/frontend/FRONTEND_GUIDELINE.md)
+- [`docs/frontend/FRONTEND_GUIDELINE.md`](../../docs/frontend/FRONTEND_GUIDELINE.md) (Next.js)
+- [`docs/frontend/ANGULAR_GUIDELINE.md`](../../docs/frontend/ANGULAR_GUIDELINE.md) (Angular standalone)
 
 Related canonical frontend docs:
 

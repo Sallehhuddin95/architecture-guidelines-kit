@@ -9,7 +9,7 @@ It lets a target repo use the same governance with [opencode](https://opencode.a
 ## What Is Installed
 
 - `opencode.json`: loads the repo rules (`CONSTITUTION.md`, `docs/architecture/`, `docs/shared/`, `docs/adr/README.md`) into every opencode session via `instructions`.
-- `agents/`: eight custom agents, one per Copilot agent.
+- `agents/`: eleven custom agents, one per Copilot agent.
 
 opencode loads project config from `.opencode/` automatically when you run `opencode` in the repo root. No extra setup is required.
 

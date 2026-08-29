@@ -1,9 +1,6 @@
 ---
 description: "Testing-focused agent for test strategy, coverage decisions, validation design, and behavior-first test implementation"
 name: "Tester"
-model:
-  - "Claude Sonnet 4.6 (copilot)"
-  - "GPT-5.4 (copilot)"
 ---
 
 # Tester

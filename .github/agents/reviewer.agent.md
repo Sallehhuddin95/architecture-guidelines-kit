@@ -1,9 +1,6 @@
 ---
 description: "Review-focused agent for correctness, regression risk, architecture compliance, security-sensitive behavior, and testing adequacy"
 name: "Reviewer"
-model:
-  - "Claude Sonnet 4.6 (copilot)"
-  - "GPT-5.4 (copilot)"
 ---
 
 # Reviewer

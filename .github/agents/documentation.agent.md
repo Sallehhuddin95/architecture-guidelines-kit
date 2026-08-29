@@ -1,9 +1,6 @@
 ---
 description: "Documentation-focused agent for keeping architecture docs, workflow guides, specs, ADRs, and conventions aligned with code and decisions"
 name: "Documentation"
-model:
-  - "Claude Sonnet 4.6 (copilot)"
-  - "GPT-5.4 (copilot)"
 ---
 
 # Documentation
