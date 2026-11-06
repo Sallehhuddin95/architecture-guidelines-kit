@@ -42,6 +42,14 @@ Then ...
 
 ---
 
+## Change Bundles and Fold-Back
+
+Acceptance scenarios for in-flight work live in the change bundle's
+`spec-delta.md` first. When the change is verified and merged, its
+scenarios are folded into the canonical acceptance file for the slice
+here. One slice, one file: `specs/acceptance/[slice].md` mirrors
+`specs/features/[slice].md`.
+
 ## Writing Rules
 
 - Write observable outcomes.
