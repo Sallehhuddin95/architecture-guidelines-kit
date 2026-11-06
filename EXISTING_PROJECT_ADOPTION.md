@@ -126,6 +126,15 @@ Instead:
 
 This keeps specs useful rather than overwhelming.
 
+### 7.1 Grandfathering Pre-Existing Specs
+
+Pre-existing spec files that predate the EARS schema can place
+`<!-- sdd-legacy -->` at the top of the file. Legacy-marked files are
+skipped by `scripts/validate-specs.sh` until they are next modified:
+any modification to a legacy file must migrate it to the full schema
+(`## Status`, `## Goal`, `## Out of Scope`, `## Error and Empty States`,
+`## Acceptance Criteria`, EARS / Gherkin criteria) and remove the marker.
+
 ---
 
 ## 8. Introduce Rules Through Active Work

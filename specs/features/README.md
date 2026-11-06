@@ -49,8 +49,32 @@ What happens when data is missing, invalid, unavailable, or forbidden?
 
 ## Acceptance Criteria
 
-- Criterion 1
-- Criterion 2
+Write criteria in EARS notation (`THE SYSTEM SHALL ...`) with
+`Given / When / Then` scenarios for behavior:
+
+- REQ-001 (Ubiquitous): THE SYSTEM SHALL [always-active invariant].
+- REQ-002 (Event-Driven): WHEN [trigger event] THE SYSTEM SHALL [system response].
+- REQ-003 (State-Driven): WHILE [system state is active] THE SYSTEM SHALL [system response].
+- REQ-004 (Unwanted Behavior): IF [error condition] THEN THE SYSTEM SHALL [error handling response].
+
+```md
+### Scenario 1: [Happy Path Name]
+- Given [precondition]
+- When [actor action]
+- Then [observable outcome and state change]
+```
+
+## Traceability
+
+Link each feature spec to its corresponding files:
+
+- API: `specs/api/[slice].md`
+- Database: `specs/database/[slice].md`
+- UI: `specs/ui/[slice].md`
+- Acceptance: `specs/acceptance/[slice].md`
+
+If a linked file does not exist yet, name it here so the change bundle
+creating this feature knows what to produce.
 
 ## Related Specs
 
