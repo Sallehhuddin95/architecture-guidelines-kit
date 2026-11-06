@@ -1,0 +1,19 @@
+# Starter import-linter contract enforcing top-down layered architecture
+# (api / views / routers -> services / use_cases -> repositories / models)
+# per ADR-0002 and ADR-0007.
+# Copy into a FastAPI or Django project, set root_package to the real
+# package name, and adjust layer module names to the project layout.
+# Requires: pip install import-linter
+[importlinter]
+root_package = src
+
+[contract:layers]
+name = Layered architecture (top-down only)
+layers =
+    api
+    views
+    routers
+    services
+    use_cases
+    repositories
+    models
