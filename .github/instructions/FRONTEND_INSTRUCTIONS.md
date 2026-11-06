@@ -1,4 +1,14 @@
+---
+applyTo: "**/frontend/**,**/web/**,**/client/**,**/*.component.ts,**/*.component.html,**/next.config.*,**/angular.json"
+description: "Frontend feature-driven architecture, state, UI, Next.js BFF routes, and testing rules"
+---
+
 # Frontend Instructions (Pointer)
+
+Note: Next.js `app/api/**` BFF route handlers are owned by the frontend
+workspace boundary. They must still enforce shared transport and security
+rules from `docs/shared/api-contract.md`, `docs/shared/error-handling.md`,
+and ADR-0004.
 
 This file is not the source of truth.
 

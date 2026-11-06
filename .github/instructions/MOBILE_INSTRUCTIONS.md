@@ -1,3 +1,8 @@
+---
+applyTo: "**/mobile/**,**/expo/**,**/react-native/**,**/ios/**,**/android/**,**/*.native.ts,**/*.native.tsx,**/app.json,**/eas.json"
+description: "Mobile React Native Expo architecture, navigation, and testing rules"
+---
+
 # Mobile Instructions (Pointer)
 
 This file is not the source of truth.

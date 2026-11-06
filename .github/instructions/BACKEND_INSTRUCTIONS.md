@@ -1,3 +1,8 @@
+---
+applyTo: "**/backend/**,**/server/**,**/services/**,**/*.py,**/manage.py"
+description: "Backend architecture, layered boundaries, API, database, and security rules"
+---
+
 # Backend Instructions (Pointer)
 
 This file is not the source of truth.
