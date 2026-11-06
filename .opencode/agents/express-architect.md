@@ -1,6 +1,6 @@
----
+﻿---
 description: "Expert Express backend architect for layered TypeScript services, zod boundary contracts, Prisma repositories, centralized error handling, and vitest-driven validation"
-mode: all
+name: "Express Service Architect"
 ---
 
 # Express Service Architect

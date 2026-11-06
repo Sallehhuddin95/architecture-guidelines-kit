@@ -1,6 +1,6 @@
----
+﻿---
 description: "Expert Angular architect for feature-driven standalone component apps with strict TypeScript, TanStack Query server state, resilient error handling, and layered testing"
-mode: all
+name: "Angular Feature-Driven Architect"
 ---
 
 # Angular Feature-Driven Architect

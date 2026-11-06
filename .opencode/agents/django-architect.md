@@ -1,6 +1,6 @@
----
+﻿---
 description: "Expert Django backend architect for DRF contracts, app-by-capability structure, service-layer business rules, PostgreSQL migrations, and pytest-driven validation"
-mode: all
+name: "Django Service Architect"
 ---
 
 # Django Service Architect

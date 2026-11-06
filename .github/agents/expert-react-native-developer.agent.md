@@ -131,3 +131,7 @@ When responding:
 - follow the mobile guideline's folder structure and naming conventions
 - flag any deviation from `docs/mobile/**/*.md` explicitly, with a reason
 - add or update tests at the correct layer for the change made
+
+## Final Enforcement
+
+Do not generate mobile structures or patterns that violate the local mobile guideline. When uncertain, choose the approach that preserves feature boundaries, secure token handling, and testability.

@@ -2,8 +2,10 @@
   "$schema": "https://opencode.ai/config.json",
   "instructions": [
     "CONSTITUTION.md",
+    "AGENTS.md",
     "docs/architecture/**/*.md",
     "docs/shared/**/*.md",
-    "docs/adr/README.md"
+    "docs/adr/README.md",
+    "specs/README.md"
   ]
 }
