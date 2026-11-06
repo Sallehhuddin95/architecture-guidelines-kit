@@ -268,9 +268,13 @@ try {
     $resolvedTarget = Resolve-Path -LiteralPath $TargetPath
 
     Add-UniquePath -Paths $pathsToCopy -RelativePath "CONSTITUTION.md"
+    Add-UniquePath -Paths $pathsToCopy -RelativePath "AGENTS.md"
     Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/architecture"
     Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/shared"
     Add-UniquePath -Paths $pathsToCopy -RelativePath "docs/adr/README.md"
+    Add-UniquePath -Paths $pathsToCopy -RelativePath "scripts/validate-specs.sh"
+    Add-UniquePath -Paths $pathsToCopy -RelativePath "scripts/sync-agents.sh"
+    Add-UniquePath -Paths $pathsToCopy -RelativePath "templates/linters"
 
     if ($installMode -eq "new") {
         Add-UniquePath -Paths $pathsToCopy -RelativePath "NEW_PROJECT_BOOTSTRAP.md"
@@ -360,6 +364,7 @@ try {
 
     if ($includeAgents) {
         Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/agents/README.md"
+        Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/prompts"
         Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/agents/architect.agent.md"
         Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/agents/reviewer.agent.md"
         Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/agents/tester.agent.md"
@@ -368,6 +373,7 @@ try {
 
         Add-UniquePath -Paths $pathsToCopy -RelativePath ".opencode/README.md"
         Add-UniquePath -Paths $pathsToCopy -RelativePath ".opencode/opencode.json"
+        Add-UniquePath -Paths $pathsToCopy -RelativePath ".opencode/commands"
         Add-UniquePath -Paths $pathsToCopy -RelativePath ".opencode/agents/architect.md"
         Add-UniquePath -Paths $pathsToCopy -RelativePath ".opencode/agents/reviewer.md"
         Add-UniquePath -Paths $pathsToCopy -RelativePath ".opencode/agents/tester.md"
