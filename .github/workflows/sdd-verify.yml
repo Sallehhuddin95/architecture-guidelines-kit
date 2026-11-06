@@ -1,0 +1,26 @@
+name: sdd-verify
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  sdd-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate spec schemas
+        run: bash scripts/validate-specs.sh
+
+      - name: Validate opencode config and governance files
+        run: |
+          python3 -m json.tool .opencode/opencode.json > /dev/null
+          test -f CONSTITUTION.md || (echo "Missing CONSTITUTION.md" && exit 1)
+          test -f AGENTS.md || (echo "Missing AGENTS.md" && exit 1)
+
+      - name: Verify agent sync (zero drift)
+        run: |
+          bash scripts/sync-agents.sh
+          git diff --exit-code .opencode/agents/
