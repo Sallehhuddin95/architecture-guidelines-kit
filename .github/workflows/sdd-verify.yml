@@ -23,4 +23,4 @@ jobs:
       - name: Verify agent sync (zero drift)
         run: |
           bash scripts/sync-agents.sh
-          git diff --exit-code .opencode/agents/
+          git diff --exit-code .opencode/agents/ .github/agents/

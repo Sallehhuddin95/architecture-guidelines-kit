@@ -394,6 +394,9 @@ main() {
                     ;;
             esac
         done
+        if [ ${#frontend_frameworks[@]} -gt 0 ]; then
+            add_unique_path ".github/instructions/FRONTEND_INSTRUCTIONS.md"
+        fi
 
         for framework in "${backend_frameworks[@]}"; do
             case "$framework" in
@@ -411,10 +414,14 @@ main() {
                     ;;
             esac
         done
+        if [ ${#backend_frameworks[@]} -gt 0 ]; then
+            add_unique_path ".github/instructions/BACKEND_INSTRUCTIONS.md"
+        fi
 
         if [ "$include_mobile" = "true" ]; then
             add_unique_path ".github/agents/expert-react-native-developer.agent.md"
             add_unique_path ".opencode/agents/react-native-architect.md"
+            add_unique_path ".github/instructions/MOBILE_INSTRUCTIONS.md"
         fi
     fi
 
