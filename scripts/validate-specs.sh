@@ -49,6 +49,19 @@ while IFS= read -r -d '' file; do
         echo "[FAIL] $file must contain at least one ### ADDED, ### MODIFIED, or ### REMOVED delta block."
         EXIT_CODE=1
       fi
+      dir="$(dirname "$file")"
+      if [ ! -f "$dir/spec-delta.md" ]; then
+        echo "[FAIL] $file has no sibling spec-delta.md in $dir."
+        EXIT_CODE=1
+      fi
+      if grep -Eq "^(Planned|In Progress|Verified|Merged)$" "$file"; then
+        for sibling in design.md tasks.md; do
+          if [ ! -f "$dir/$sibling" ]; then
+            echo "[FAIL] $file is past proposal stage but $dir/$sibling is missing."
+            EXIT_CODE=1
+          fi
+        done
+      fi
       ;;
     spec-delta.md)
       require_sections "$file" "## Formal Requirements" "## Error and Empty States" "## Acceptance Criteria"

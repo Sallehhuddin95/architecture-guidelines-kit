@@ -392,6 +392,9 @@ try {
                 }
             }
         }
+        if ($frontendFrameworks.Count -gt 0) {
+            Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/instructions/FRONTEND_INSTRUCTIONS.md"
+        }
 
         foreach ($framework in $backendFrameworks) {
             switch ($framework) {
@@ -409,10 +412,14 @@ try {
                 }
             }
         }
+        if ($backendFrameworks.Count -gt 0) {
+            Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/instructions/BACKEND_INSTRUCTIONS.md"
+        }
 
         if ($includeMobile) {
             Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/agents/expert-react-native-developer.agent.md"
             Add-UniquePath -Paths $pathsToCopy -RelativePath ".opencode/agents/react-native-architect.md"
+            Add-UniquePath -Paths $pathsToCopy -RelativePath ".github/instructions/MOBILE_INSTRUCTIONS.md"
         }
     }
 
