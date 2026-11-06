@@ -83,11 +83,18 @@ If these are not explicit early, the copied docs will not shape implementation.
 
 ## 6. Write the First Spec Before the First Real Feature
 
-For the first meaningful feature, API, or workflow:
+For the first meaningful feature, API, or workflow, run the stage-gated
+commands in order so the repo initializes its spec habit on Day 1:
 
-1. create a narrow spec
-2. align the implementation to that spec
-3. review against the architecture and shared rules
+1. `/spec.propose` - scope the change, EARS requirements, acceptance scenarios
+2. `/spec.plan` - architecture slice, contracts, migrations
+3. `/spec.tasks` - test-first atomic tasks mapped to `REQ-XXX`
+4. `/spec.verify` - coverage audit, boundary audit, fold-back into `specs/`
+
+`AGENTS.md` is the agent entry point: it binds assistants to
+`CONSTITUTION.md`, the spec workflow, and the guardrails. Copy it with
+the Day 1 set. Change bundles live in `specs/changes/<YYYY-MM-DD-slug>/`
+and fold into source-of-truth specs on merge.
 
 This is the point where the new repo starts using the guidance rather than just storing it.
 

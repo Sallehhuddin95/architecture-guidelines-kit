@@ -215,6 +215,22 @@ Use:
 
 These help once real delivery work starts.
 
+### Phase 5b: Spec-Driven Slash Commands
+
+Feature work runs through four stage-gated commands, each mapped to
+`docs/workflow/feature-development.md`:
+
+| Command | Workflow steps | Produces | Gate |
+|---|---|---|---|
+| `/spec.propose` | 1-4 | `proposal.md` + `spec-delta.md` | Human approves proposal, no code yet |
+| `/spec.plan` | 5 | `design.md` (+ inline ADR if structural) | Human confirms design, no code yet |
+| `/spec.tasks` | 5-6 bridge | `tasks.md` with `Refs: REQ-XXX` | Tasks traceable to requirements |
+| `/spec.verify` | 8-9 | Verification Report + fold-back | All gates pass, delta folded into `specs/` |
+
+CI enforces the pipeline: `scripts/validate-specs.sh` checks every spec
+file schema, and `.github/workflows/sdd-verify.yml` runs validation,
+config checks, and agent-sync drift detection on every pull request.
+
 ### Phase 6: Agents
 
 If the target repo uses custom agents, copy `.github/agents/` (Copilot) and/or `.opencode/` (opencode) and make sure the referenced docs also exist in the target repo.

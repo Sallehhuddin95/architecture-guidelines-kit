@@ -81,6 +81,11 @@ When guidance appears to conflict, resolve it in this order:
 6. workflow docs for process expectations
 7. agents, which must enforce and apply the documents above rather than invent competing policy
 
+`AGENTS.md` is the root agent entry point. It binds coding assistants to
+this hierarchy and to the spec-driven workflow. It creates no policy of
+its own: on any conflict between `AGENTS.md` and the documents above,
+the documents above win.
+
 If two documents conflict at the same level, the more specific and actively maintained source should be corrected so the conflict disappears.
 
 ---
@@ -117,6 +122,8 @@ Do not write ADRs for trivial implementation details.
 ## 7. Specs and Workflow Rules
 
 - Specs should define meaningful behavior before or alongside implementation when behavior clarity matters.
+- Brownfield and iterative changes go through the `specs/changes/` delta workflow: propose, plan, task-breakdown, verify, then fold back into source-of-truth specs.
+- Every spec carries testable criteria before implementation: EARS (`THE SYSTEM SHALL`) formal requirements and `Given / When / Then` acceptance scenarios.
 - Workflow docs should support real delivery work, not ceremonial process.
 - Specs and workflow documents must remain lightweight enough to be used consistently.
 - If a process or behavior is not actually followed, the docs should be corrected rather than preserved as fiction.

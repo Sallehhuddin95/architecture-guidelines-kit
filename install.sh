@@ -271,9 +271,13 @@ main() {
     fi
 
     add_unique_path "CONSTITUTION.md"
+    add_unique_path "AGENTS.md"
     add_unique_path "docs/architecture"
     add_unique_path "docs/shared"
     add_unique_path "docs/adr/README.md"
+    add_unique_path "scripts/validate-specs.sh"
+    add_unique_path "scripts/sync-agents.sh"
+    add_unique_path "templates/linters"
 
     if [ "$install_mode" = "new" ]; then
         add_unique_path "NEW_PROJECT_BOOTSTRAP.md"
@@ -362,6 +366,7 @@ main() {
 
     if [ "$include_agents" = "true" ]; then
         add_unique_path ".github/agents/README.md"
+        add_unique_path ".github/prompts"
         add_unique_path ".github/agents/architect.agent.md"
         add_unique_path ".github/agents/reviewer.agent.md"
         add_unique_path ".github/agents/tester.agent.md"
@@ -370,6 +375,7 @@ main() {
 
         add_unique_path ".opencode/README.md"
         add_unique_path ".opencode/opencode.json"
+        add_unique_path ".opencode/commands"
         add_unique_path ".opencode/agents/architect.md"
         add_unique_path ".opencode/agents/reviewer.md"
         add_unique_path ".opencode/agents/tester.md"
